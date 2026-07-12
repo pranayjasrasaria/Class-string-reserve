@@ -1,0 +1,33 @@
+# Encapsulation example in Python
+
+class SecretString:
+    def __init__(self, secret_value):
+        # Private attribute (name mangling)
+        self.__s = secret_value
+
+    # Public method to check if input matches the secret
+    def verify(self, user_input):
+        if not isinstance(user_input, str):
+            raise ValueError("Input must be a string.")
+        return user_input == self.__s
+
+    # Optional: Getter method (controlled access)
+    def get_secret(self):
+        return "(Access Denied) Secret is private!"
+
+# Main program
+if __name__ == "__main__":
+    # Create object with secret value
+    secret_obj = SecretString("s")
+
+    try:
+        # Take user input
+        user_value = input("Enter the secret string: ").strip()
+
+        # Verify match
+        if secret_obj.verify(user_value):
+            print("✅ Correct! You guessed the secret.")
+        else:
+            print("❌ Incorrect! Try again.")
+    except ValueError as e:
+        print(f"Error: {e}")
